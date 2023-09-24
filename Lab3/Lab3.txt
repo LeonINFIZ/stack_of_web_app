@@ -1,0 +1,76 @@
+class PostgreSQL:
+    pass
+
+class MySQL:
+    pass
+
+class Builder:
+    def select(self):
+        pass
+    
+    def where(self):
+        pass
+    
+    def limit(self):
+        pass
+    
+    def get_sql(self):
+        pass
+
+class PostgreSQLBuilder(Builder):
+    def __init__(self):
+        self.postgres = PostgreSQL()
+    
+    def select(self):
+        self.postgres = PostgreSQL()
+    
+    def where(self):
+        pass
+    
+    def limit(self):
+        pass
+    
+    def get_sql(self):
+        pass
+    
+    def get_result(self):
+        return self.postgres
+
+class MySQLBuilder(Builder):
+    def __init__(self):
+        self.mysql = MySQL()
+    
+    def select(self):
+        self.mysql = MySQL()
+    
+    def where(self):
+        pass
+    
+    def limit(self):
+        pass
+    
+    def get_sql(self):
+        pass
+    
+    def get_result(self):
+        return self.mysql
+
+class Director:
+    def construct_database(self, builder):
+        builder.select()
+        builder.where()
+        builder.limit()
+        builder.get_sql()
+
+class Application:
+    def make_postgresql(self):
+        director = Director()
+        builder = PostgreSQLBuilder()
+        director.construct_database(builder)
+        postgres = builder.get_result()
+    
+    def make_mysql(self):
+        director = Director()
+        builder = MySQLBuilder()
+        director.construct_database(builder)
+        mysql = builder.get_result()

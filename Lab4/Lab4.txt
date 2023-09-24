@@ -1,0 +1,50 @@
+class Notification:
+    def send(self, title, message):
+        pass
+
+
+class EmailNotification:
+    def __init__(self, admin_email):
+        self.admin_email = admin_email
+
+    def send_email(self, title, message):
+        # Здесь вы можете добавить код для отправки электронной почты
+        # В данном примере просто выводим сообщение на экран
+        print(f"Sent email with title '{title}' to '{self.admin_email}' that says '{message}'.")
+
+
+class SlackNotificationAdapter(Notification):
+    def __init__(self, login, api_key, chat_id):
+        self.login = login
+        self.api_key = api_key
+        self.chat_id = chat_id
+
+    def send(self, title, message):
+        # Здесь добавьте код для отправки уведомления в Slack
+        # Используйте значения login, api_key и chat_id для аутентификации и отправки сообщения
+        print(f"Sent Slack notification with title '{title}' to chat '{self.chat_id}' that says '{message}'.")
+
+
+class SMSNotificationAdapter(Notification):
+    def __init__(self, phone, sender):
+        self.phone = phone
+        self.sender = sender
+
+    def send(self, title, message):
+        # Здесь добавьте код для отправки SMS-уведомления
+        # Используйте значения phone и sender для отправки SMS
+        print(f"Sent SMS notification to '{self.phone}' from sender '{self.sender}' that says '{message}'.")
+
+
+if __name__ == "__main__":
+    # Пример использования EmailNotification
+    email_notifier = EmailNotification("admin@example.com")
+    email_notifier.send_email("Test Email", "This is a test email message")
+
+    # Пример использования SlackNotificationAdapter
+    slack_adapter = SlackNotificationAdapter("slack_login", "slack_api_key", "slack_chat_id")
+    slack_adapter.send("Test Slack", "This is a test Slack message")
+
+    # Пример использования SMSNotificationAdapter
+    sms_adapter = SMSNotificationAdapter("+123456789", "MySender")
+    sms_adapter.send("Test SMS", "This is a test SMS message")

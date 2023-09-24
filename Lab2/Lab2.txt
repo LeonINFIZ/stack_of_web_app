@@ -1,0 +1,53 @@
+# Интерфейс для социальной сети
+class SocialNetwork:
+    def login(self, username, password):
+        pass
+    
+    def post(self, message):
+        pass
+
+# Конкретный класс для Facebook
+class Facebook(SocialNetwork):
+    def login(self, username, password):
+        print(f"Вход в Facebook с именем пользователя: {username} и паролем: {password}")
+    
+    def post(self, message):
+        print(f"Опубликовано на Facebook: {message}")
+
+# Конкретный класс для LinkedIn
+class LinkedIn(SocialNetwork):
+    def login(self, email, password):
+        print(f"Вход в LinkedIn с адресом электронной почты: {email} и паролем: {password}")
+    
+    def post(self, message):
+        print(f"Опубликовано на LinkedIn: {message}")
+
+# Фабричный метод для создания объектов социальных сетей
+class SocialNetworkFactory:
+    def create_social_network(self):
+        pass
+
+# Фабрика для создания объектов Facebook
+class FacebookFactory(SocialNetworkFactory):
+    def create_social_network(self):
+        return Facebook()
+
+# Фабрика для создания объектов LinkedIn
+class LinkedInFactory(SocialNetworkFactory):
+    def create_social_network(self):
+        return LinkedIn()
+
+if __name__ == "__main__":
+    # Выберем фабрику для создания объектов социальных сетей
+    factory = FacebookFactory()  # Можно заменить на LinkedInFactory для другой сети
+
+    # Создадим объект социальной сети
+    social_network = factory.create_social_network()
+
+    # Войдем в сеть и опубликуем сообщение
+    social_network.login("my_username", "my_password")
+    social_network.post("Hello, World!")
+
+    # Освободим ресурсы
+    del factory
+    del social_network
